@@ -162,7 +162,49 @@ const RecipeController = {
         } catch (err) {
             return res.status(404).json({ "status": 404, "message": err.message })
         }
-    }
+    },
+
+    getMyRecipe: async (req, res) => {
+        try {
+          const { search, searchBy, limit, sort } = req.query;
+          const { id } = req.user;
+    
+          let page = req.query.page || 1;
+          let limiter = limit || 5;
+    
+          data = {
+            search: search || "",
+            searchBy: searchBy || "title",
+            offset: (page - 1) * limiter,
+            limit: limit || 5,
+            sort: sort || "ASC",
+            id: parseInt(id),
+          };
+          let dataRecipe = await getMyRecipe(data);
+          let dataRecipeCount = await myRecipeCount(data);
+    
+          const pagination = {
+            totalPage: Math.ceil(dataRecipeCount.rows[0].count / limiter),
+            totalData: parseInt(dataRecipeCount.rows[0].count),
+            pageNow: parseInt(page),
+          };
+    
+          if (dataRecipe.rows.length === 0) {
+            return res
+              .status(404)
+              .json({ message: "Result not found", pagination });
+          }
+    
+          res.status(200).json({
+            message: "Get recipes sucessfully",
+            data: dataRecipe.rows,
+            pagination,
+          });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ message: "Get recipes pagination failed", error });
+        }
+      },
 
 }
 
