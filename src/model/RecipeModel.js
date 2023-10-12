@@ -24,9 +24,21 @@ const getRecipeAll = async ({ searchRecipe, searchBy, sortBy, sort, offset, limi
     )
 }
 
-const getRecipeAllCount = async () => {
+const getRecipeAllCount = async ({ searchRecipe, searchBy}) => {
     return new Promise((resolve, reject) =>
-        Pool.query(`SELECT * FROM recipe `, (err, result) => {
+    Pool.query(`SELECT 
+    recipe.id,
+    recipe.title,
+    recipe.ingredients,
+    recipe.photo,
+    category.category_name AS category,
+    users.name AS author
+FROM 
+    recipe
+JOIN 
+    category ON recipe.category_id = category.category_id
+JOIN 
+    users ON recipe.user_id = users.id WHERE ${searchBy} ILIKE '%${searchRecipe}%'`, (err, result) => {
             if (!err) {
                 resolve(result)
             } else {
