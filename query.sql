@@ -1,4 +1,4 @@
--- Active: 1693367672429@@147.139.210.135@5432@yasin01
+-- Active: 1692324521013@@127.0.0.1@5432@tugasbe
 CREATE DATABASE tugasBE;
 
 CREATE TABLE recipe (
@@ -43,7 +43,7 @@ VALUES ('Es Teh Manis', 'Teh, Gula, Es Batu', 'es_teh_manis.jpg', 2);
 
 DROP TABLE category;
 
-SELECT * FROM recipe WHERE id = 1;
+SELECT * FROM users;
 
 DROP DATABASE tugasBE;
 
@@ -90,7 +90,8 @@ ALTER TABLE users ADD COLUMN photo VARCHAR;
     recipe.ingredients,
     recipe.photo,
     category.category_name AS category,
-    users.name AS author
+    users.name AS author,
+    users.photo AS author_photo
 FROM 
     recipe
 JOIN 

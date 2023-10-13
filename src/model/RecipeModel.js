@@ -8,7 +8,8 @@ const getRecipeAll = async ({ searchRecipe, searchBy, sortBy, sort, offset, limi
         recipe.ingredients,
         recipe.photo,
         category.category_name AS category,
-        users.name AS author
+        users.name AS author,
+        users.photo AS author_photo
     FROM 
         recipe
     JOIN 
