@@ -51,7 +51,7 @@ JOIN
 
 const getRecipeById = async (id) => {
     return new Promise((resolve, reject) =>
-        Pool.query(`SELECT recipe.id, recipe.title, recipe.ingredients, recipe.photo, recipe.user_id, recipe.category_id, category.category_name AS category, users.name AS author
+        Pool.query(`SELECT recipe.id, recipe.title, recipe.ingredients, recipe.photo, recipe.user_id, recipe.category_id, category.category_name AS category, users.name AS author, users.photo AS author_photo
         FROM recipe
         JOIN category ON recipe.category_id = category.category_id
         JOIN users ON recipe.user_id = users.id
