@@ -35,6 +35,7 @@ const RecipeController = {
     getDataById: async (req, res, next) => {
         try {
             const { id } = req.params
+            console.log(id)
 
             if (!id || id <= 0 || isNaN(id)) {
                 return res.status(404).json({ "message": "id wrong" });

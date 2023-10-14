@@ -1,4 +1,4 @@
--- Active: 1692324521013@@127.0.0.1@5432@tugasbe
+-- Active: 1689864483057@@127.0.0.1@5432@tugasbe
 CREATE DATABASE tugasBE;
 
 CREATE TABLE recipe (
@@ -41,7 +41,7 @@ VALUES ('Nasi Goreng', 'Nasi, Bawang Merah, Bawang Putih, Telur, Kecap', 'nasi_g
 INSERT INTO recipe (title, ingredients, photo, category_id) 
 VALUES ('Es Teh Manis', 'Teh, Gula, Es Batu', 'es_teh_manis.jpg', 2);
 
-DROP TABLE category;
+DROP TABLE comments;
 
 SELECT * FROM users;
 
@@ -98,3 +98,36 @@ JOIN
     category ON recipe.category_id = category.category_id
 JOIN 
     users ON recipe.user_id = users.id;
+
+CREATE TABLE comment (
+    comment_id serial PRIMARY KEY,
+    recipe_id integer NOT NULL,
+    user_id integer NOT NULL,
+    comment_text text NOT NULL,
+    created_at timestamp DEFAULT current_timestamp,
+    FOREIGN KEY (recipe_id) REFERENCES recipe(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+ALTER TABLE recipe
+DROP COLUMN id;
+
+ALTER TABLE recipe
+ADD COLUMN id serial PRIMARY KEY;
+
+ALTER TABLE users
+DROP COLUMN id;
+
+ALTER TABLE users
+ADD COLUMN id serial PRIMARY KEY;
+
+ALTER TABLE comment
+DROP CONSTRAINT IF EXISTS comment_recipe_id_fkey;
+
+ALTER TABLE comment
+ADD CONSTRAINT comment_recipe_id_fkey
+FOREIGN KEY (recipe_id)
+REFERENCES recipe (id)
+ON DELETE CASCADE;
+
+
