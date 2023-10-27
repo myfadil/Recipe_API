@@ -45,10 +45,9 @@ const LikeAndBookmarkController = {
             }
 
             let result = await getLikebyID(parameter)
-            if (result.rowCount == 0) {
-                throw new Error("get failed")
+            if (!result.rows[0]) {
+                return res.status(200).json({ "status": 200, "message": "like not found", data: [] })
             }
-            return res.status(200).json({ "status": 200, "message": "get like by id success", data: result.rows[0] })
 
         } catch (err) {
             console.log(err)
