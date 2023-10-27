@@ -58,7 +58,7 @@ const CommentController = {
                 return res.status(404).json({ "message": "id wrong" });
             }
 
-            let dataCommentId = await getCommentById(parseInt(id))
+            let dataCommentId = await getCommentById(parseInt(comment_id))
             if (dataCommentId.rowCount === 0) {
                 return res.status(404).json({ "status": 404, "message": "Comment not found" });
             }
@@ -84,7 +84,7 @@ const CommentController = {
                 return res.status(404).json({ "message": "comment not found" });
             }
 
-            let result = await deleteComment(parseInt(category_id))
+            let result = await deleteComment(parseInt(comment_id))
             console.log(result)
             if (result.rowCount == 0) {
                 throw new Error("delete failed")

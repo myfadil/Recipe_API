@@ -130,4 +130,24 @@ FOREIGN KEY (recipe_id)
 REFERENCES recipe (id)
 ON DELETE CASCADE;
 
+CREATE TABLE Likes (
+    LikeID SERIAL PRIMARY KEY,
+    UserID INT,
+    ResepID INT,
+    FOREIGN KEY (UserID) REFERENCES users(id),
+    FOREIGN KEY (ResepID) REFERENCES recipe(id)
+);
+
+CREATE TABLE Bookmarks (
+    BookmarkID SERIAL PRIMARY KEY,
+    UserID INT,
+    ResepID INT,
+    FOREIGN KEY (UserID) REFERENCES users(id),
+    FOREIGN KEY (ResepID) REFERENCES recipe(id)
+);
+
+SELECT recipe.*
+        FROM recipe
+        INNER JOIN Likes L ON recipe.id = L.ResepID
+        WHERE L.UserID = 3
 
