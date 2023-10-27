@@ -49,9 +49,10 @@ const LikeAndBookmarkController = {
                 return res.status(200).json({ "status": 200, "message": "like not found", data: [] })
             }
 
+            return res.status(200).json({ "status": 200, "message": "get like recipe success", data: result.rows})
         } catch (err) {
-            console.log(err)
             return res.status(404).json({ "status": 404, "message": err.message })
+
         }
     },
 
