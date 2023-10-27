@@ -15,6 +15,21 @@ const getLike = async (UserID) => {
     )
 }
 
+const getLikebyID = async ({UserID, ResepID}) => {
+    return new Promise((resolve, reject) =>
+        Pool.query(`SELECT recipe.*
+        FROM recipe
+        INNER JOIN Likes L ON recipe.id = L.ResepID
+        WHERE L.UserID = ${UserID} AND ResepID = ${ResepID}`, (err, result) => {
+            if (!err) {
+                resolve(result)
+            } else {
+                reject(err)
+            }
+        })
+    )
+}
+
 const getBookmark = async (UserID) => {
     return new Promise((resolve, reject) =>
         Pool.query(`SELECT recipe.*
@@ -86,5 +101,5 @@ const deleteBookmark = async ({UserID, ResepID}) => {
 }
 
 module.exports = {
-    getLike, getBookmark, postLike, postBookmark, deleteLike, deleteBookmark
+    getLike, getLikebyID, getBookmark, postLike, postBookmark, deleteLike, deleteBookmark
 }

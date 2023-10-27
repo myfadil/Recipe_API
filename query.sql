@@ -1,4 +1,4 @@
--- Active: 1689864483057@@127.0.0.1@5432@tugasbe
+-- Active: 1693367672429@@147.139.210.135@5432@yasin01
 CREATE DATABASE tugasBE;
 
 CREATE TABLE recipe (
@@ -151,3 +151,7 @@ SELECT recipe.*
         INNER JOIN Likes L ON recipe.id = L.ResepID
         WHERE L.UserID = 3
 
+SELECT recipe.*
+        FROM recipe
+        INNER JOIN Likes L ON recipe.id = L.ResepID
+        WHERE L.UserID = 3 AND ResepID = 5

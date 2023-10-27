@@ -1,4 +1,4 @@
-const { getLike, getBookmark, postLike, postBookmark, deleteLike, deleteBookmark } = require("../model/LikeAndBookmark")
+const { getLike,getLikebyID, getBookmark, postLike, postBookmark, deleteLike, deleteBookmark } = require("../model/LikeAndBookmark")
 
 const LikeAndBookmarkController = {
     getLikeRecipe: async (req, res, next) => {
@@ -22,6 +22,41 @@ const LikeAndBookmarkController = {
 
         }
     },
+
+    getLikeRecipeById: async (req, res, next) => {
+        try {
+            const { UserID, ResepID } = req.query
+
+            const parameter = {
+                UserID: UserID || "",
+                ResepID: ResepID || "",
+            }
+            console.log(UserID)
+            console.log('aaaa')
+            console.log(ResepID)
+            console.log('aaaa')
+
+            if (!UserID || UserID <= 0 || isNaN(UserID)) {
+                return res.status(404).json({ "message": "User not found" });
+            }
+
+            if (!ResepID || ResepID <= 0 || isNaN(ResepID)) {
+                return res.status(404).json({ "message": "Recipe not found" });
+            }
+
+            let result = await getLikebyID(parameter)
+            if (result.rowCount == 0) {
+                throw new Error("get failed")
+            }
+            return res.status(200).json({ "status": 200, "message": "get like by id success", data: result.rows[0] })
+
+        } catch (err) {
+            console.log(err)
+            return res.status(404).json({ "status": 404, "message": err.message })
+        }
+    },
+
+    
 
     postLikeRecipe: async (req, res, next) => {
 
