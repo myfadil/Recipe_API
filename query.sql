@@ -155,3 +155,19 @@ SELECT recipe.*
         FROM recipe
         INNER JOIN Likes L ON recipe.id = L.ResepID
         WHERE L.UserID = 3 AND ResepID = 5
+
+ALTER TABLE likes DROP CONSTRAINT IF EXISTS likes_resepid_fkey;
+
+ALTER TABLE likes
+ADD CONSTRAINT likes_recipe_id_fkey
+FOREIGN KEY (resepid)
+REFERENCES recipe (id)
+ON DELETE CASCADE;
+
+ALTER TABLE bookmarks DROP CONSTRAINT IF EXISTS bookmarks_resepid_fkey;
+
+ALTER TABLE bookmarks
+ADD CONSTRAINT bookmarks_resepid_fkey
+FOREIGN KEY (resepid)
+REFERENCES recipe (id)
+ON DELETE CASCADE;
