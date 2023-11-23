@@ -97,7 +97,7 @@ node index.js
 
 ## How Use
 
-Open Postman, go to workspace then import postman collection on folder recipeApi, name is **recipeAPI.postman_collection**
+Open Postman, go to workspace then import postman collection on folder recipeApi, name is **Recipe.postman_collection.json**
 
 ## Related Project
 
